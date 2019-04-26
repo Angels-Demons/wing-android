@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="activities.Login"
+    android:orientation="vertical"
+    android:background="@color/md_white_1000"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_margin="@dimen/divider"
+        android:src="@drawable/logo" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wing"
+        android:textStyle="bold"
+        android:textColor="@color/md_grey_600"
+        android:textSize="17dp"
+        android:layout_gravity="center"/>
+
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="45dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="شماره تلفن"
+        android:textSize="17dp"
+        android:textColor="@color/md_blue_grey_300"
+        android:layout_margin="@dimen/login_register_text_margin"/>
+
+    <EditText
+        android:id="@+id/phone"
+        android:inputType="phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="09121234567"
+        android:textSize="17dp"
+        android:background="#0000"
+        android:textColor="@color/md_blue_grey_700"
+        android:textColorHint="@color/md_blue_grey_700"
+        android:gravity="center_horizontal"
+        android:layout_margin="@dimen/login_register_text_margin"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/md_green_50"
+        android:layout_margin="@dimen/divider"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="رمز عبور"
+        android:textSize="17dp"
+        android:textColor="@color/md_blue_grey_300"
+        android:layout_margin="@dimen/login_register_text_margin"/>
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:hint="********"
+        android:background="#0000"
+        android:gravity="center_horizontal"
+        android:textColor="@color/md_blue_grey_700"
+        android:textColorHint="@color/md_blue_grey_700"
+        android:layout_margin="@dimen/login_register_text_margin"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/md_green_50"
+        android:layout_margin="@dimen/divider"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="رمز عبور خود را فراموش کرده اید؟"
+        android:textSize="14dp"
+        android:textColor="@color/md_blue_grey_300"
+        android:layout_margin="@dimen/login_register_text_margin"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="ورود"
+        android:textColor="@color/md_white_1000"
+        android:textSize="20dp"
+        android:onClick="loginClicked"
+        android:layout_margin="@dimen/divider"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ثبت نام"
+            android:textStyle="bold"
+            android:textColor="@color/md_grey_600"
+            android:textSize="17dp"
+            android:layout_gravity="center"
+            android:onClick="registerClicked"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="نام کاربری ندارید؟"
+            android:lines="1"
+            android:textColor="@color/md_grey_600"
+            android:textSize="16dp"
+            android:layout_marginLeft="4dp"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>

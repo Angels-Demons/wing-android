@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_purchase"
+            android:icon="@drawable/ic_add_shopping_cart_black_24dp"
+            android:title="خرید" />
+
+        <!--<item-->
+            <!--android:id="@+id/nav_ride_history"-->
+            <!--android:icon="@drawable/ic_history_black_24dp"-->
+            <!--android:title="تاریخچه سفر ها" />-->
+
+        <!--<item-->
+            <!--android:id="@+id/nav_tutorial"-->
+            <!--android:icon="@drawable/icons8_classroom_24"-->
+            <!--android:title="آموزش" />-->
+
+        <!--<item-->
+            <!--android:id="@+id/nav_become_charger"-->
+            <!--android:icon="@drawable/ic_power_black_24dp"-->
+            <!--android:title="َشارژر شو" />-->
+
+        <!--<item-->
+            <!--android:id="@+id/nav_help"-->
+            <!--android:icon="@drawable/ic_help_black_24dp"-->
+            <!--android:title="پشتیبانی" />-->
+
+        <!--<item-->
+            <!--android:id="@+id/nav_safety"-->
+            <!--android:icon="@drawable/icons8_motorbike_helmet_48"-->
+            <!--android:title="َامنیت" />-->
+
+        <!--<item-->
+            <!--android:id="@+id/nav_settings"-->
+            <!--android:icon="@drawable/ic_settings_black_24dp"-->
+            <!--android:title="َتنظیمات" />-->
+
+    </group>
+
+    <!--<item android:title="Communicate">-->
+        <!--<menu>-->
+            <!--<item-->
+                <!--android:id="@+id/nav_share"-->
+                <!--android:icon="@drawable/ic_menu_share"-->
+                <!--android:title="Share" />-->
+            <!--<item-->
+                <!--android:id="@+id/nav_send"-->
+                <!--android:icon="@drawable/ic_menu_send"-->
+                <!--android:title="Send" />-->
+        <!--</menu>-->
+    <!--</item>-->
+
+</menu>

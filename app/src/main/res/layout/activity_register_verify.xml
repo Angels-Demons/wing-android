@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="activities.Register"
+    android:background="@color/md_white_1000"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/intro_header_text"
+        android:textColor="@color/colorPrimary"
+        android:text="Wing"
+        android:layout_margin="@dimen/divider"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="100dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/intro_body_text"
+        android:textColor="@color/md_blue_grey_500"
+        android:text="verification code"
+        android:layout_margin="@dimen/divider"/>
+
+    <EditText
+        android:id="@+id/verification_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/md_black_1000"
+        android:textSize="@dimen/intro_header_text"
+        android:hint="1234"
+        android:maxLength="6"
+        android:inputType="number"
+        android:textColorHint="@color/md_grey_400" />
+
+    <ui.PieView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/pieView"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:textColor="@color/md_blue_grey_500"
+        android:text="52 seconds"
+        android:layout_margin="@dimen/login_register_text_margin"
+        android:id="@+id/timer"/>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:layout_margin="@dimen/divider"
+        android:text="verify"
+        android:textColor="@color/md_white_1000"
+        android:textSize="20dp"
+        android:onClick="verifyClicked" />
+
+
+
+</LinearLayout>

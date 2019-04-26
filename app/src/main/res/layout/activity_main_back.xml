@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="activities.MainActivity">
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
+
+    <LinearLayout
+        android:id="@+id/header_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/header"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:weightSum="3">
+
+        <TextView
+            android:id="@+id/header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/md_white_1000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/credit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/md_white_1000"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/md_white_1000"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:weightSum="3">
+
+        <LinearLayout
+            android:id="@+id/stat_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/footer_height"
+            android:layout_weight="1"
+            android:background="@drawable/footer_stat"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:weightSum="3">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="10\nکیلومتر"
+                android:textColor="@color/statColor"
+                android:textSize="@dimen/font_stat" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="70%\nشارژ"
+                android:textColor="@color/statColor"
+                android:textSize="@dimen/font_stat" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="30\nدقیقه"
+                android:textColor="@color/statColor"
+                android:textSize="@dimen/font_stat" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/footer_height"
+            android:layout_weight="2"
+            android:background="@drawable/footer_action"
+            android:gravity="center"
+            android:onClick="actionBarClicked"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/action"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="در حال اتصال به سرور"
+                android:textColor="@color/md_white_1000"
+                android:textSize="@dimen/font_action" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/imageButton"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginStart="15dp"
+        android:background="@drawable/ic_keyboard_arrow_left_black_24dp"
+        android:backgroundTint="@color/md_white_1000"
+        android:onClick="backClicked"
+        android:visibility="invisible"/>
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="15dp"
+        android:background="@drawable/ic_menu_black_24dp"
+        android:backgroundTint="@color/md_white_1000"
+        android:onClick="menuClicked" />
+
+</RelativeLayout>

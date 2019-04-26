@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="prices_array">
+        <item>5,000</item>
+        <item>10,000</item>
+        <item>20,000</item>
+        <item>50,000</item>
+    </string-array>
+</resources>

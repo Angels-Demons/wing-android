@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="activities.Tutorial"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <LinearLayout
+            android:id="@+id/back_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|end"
+            android:orientation="horizontal"
+            android:background="@color/colorPrimary"
+            android:paddingTop="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="آموزش"
+                android:textStyle="bold"
+                android:textColor="@color/md_white_1000"
+                android:textSize="25sp" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_keyboard_arrow_right_black_24dp"
+                android:textColor="@color/md_white_1000"
+                android:layout_margin="@dimen/divider"
+                android:backgroundTint="@color/md_white_1000"
+                android:onClick="backToMain"/>
+
+        </LinearLayout>
+
+        <!--<TextView-->
+            <!--android:padding="20dp"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="ولکام"-->
+            <!--android:textStyle="bold"-->
+            <!--android:textColor="@color/md_grey_600"-->
+            <!--android:textSize="30sp"-->
+          <!--/>-->
+
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical"
+        android:weightSum="1"
+        android:orientation="vertical">
+
+        <!--<Button-->
+        <!--android:id="@+id/btn_next"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:background="@null"-->
+        <!--android:text="بعدی"-->
+        <!--android:textColor="@android:color/white"-->
+        <!--android:textSize="@dimen/intro_body_text"/>-->
+
+        <LinearLayout
+            android:id="@+id/layoutDots"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/next"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/md_white_1000"
+            android:text="بعدی"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20dp"
+            android:layout_marginLeft="@dimen/divider"
+            android:layout_marginRight="@dimen/divider"
+            android:layout_marginBottom="@dimen/divider"
+            android:onClick="next"/>
+        <!--<Button-->
+        <!--android:id="@+id/btn_skip"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:background="@null"-->
+        <!--android:text="بستن"-->
+        <!--android:textColor="@android:color/white"-->
+        <!--android:textSize="@dimen/intro_body_text"/>-->
+
+    </LinearLayout>
+
+
+</RelativeLayout>

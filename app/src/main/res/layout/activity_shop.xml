@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="activities.Shop"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/md_white_1000">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/login_register_text_margin"
+        android:text="مبلغ به تومان"
+        android:textColor="@color/md_blue_grey_500"
+        android:textSize="16dp" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <View
+            android:layout_marginRight="100dp"
+            android:layout_marginLeft="100dp"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/price_label_size"
+            android:background="@color/colorPrimary"
+            android:layout_centerInParent="true"/>
+        <com.aigestudio.wheelpicker.WheelPicker
+            android:id="@+id/wheelPicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:wheel_visible_item_count="3"
+            app:wheel_item_text_size="@dimen/prices_text_size"
+            android:layout_centerInParent="true"
+            app:wheel_selected_item_position="1"/>
+
+    </RelativeLayout>
+
+
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:gravity="left"
+        android:visibility="gone">
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5,000 " />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10,000"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20,000"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="50,000"/>
+    </RadioGroup>
+
+    <com.gigamole.infinitecycleviewpager.VerticalViewPager
+        android:id="@+id/vicvp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:icvp_center_page_scale_offset="30dp"
+        app:icvp_max_page_scale="0.8"
+        app:icvp_medium_scaled="true"
+        app:icvp_min_page_scale="0.5"
+        app:icvp_min_page_scale_offset="5dp"
+        app:icvp_scroll_duration="500"
+        android:background="@color/colorPrimary"
+        android:layout_margin="20dp"
+        android:visibility="gone"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorSecondary"
+        android:layout_margin="20dp"
+        android:visibility="gone">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#5555"
+            android:layout_centerVertical="true"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:id="@+id/scrollView">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2000"
+                    android:layout_margin="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3000"
+                    android:layout_margin="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5000"
+                    android:layout_margin="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10000"
+                    android:layout_margin="10dp"/>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </RelativeLayout>
+
+
+
+    <EditText
+        android:id="@+id/amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/login_register_text_margin"
+        android:background="#0000"
+        android:hint="5000"
+        android:inputType="numberDecimal"
+        android:textColor="@color/md_blue_grey_800"
+        android:textColorHint="@color/md_blue_grey_700"
+        android:textSize="16sp"
+        android:visibility="gone"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/divider"
+        android:background="@color/colorPrimary"
+        android:text="پرداخت"
+        android:textColor="@color/md_white_1000"
+        android:textSize="20dp"
+        android:onClick="goForPurchase"/>
+
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+    </WebView>
+
+
+
+</LinearLayout>

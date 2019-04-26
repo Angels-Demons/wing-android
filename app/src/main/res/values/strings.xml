@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Wing</string>
+    <string name="title_activity_map">Map</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="increase_credit">افزایش اعتبار (تومان)</string>
+    <string name="confirm">پرداخت</string>
+    <string name="cancel">انصراف</string>
+    <string name="title">افزایش اعتبار (تومان)</string>
+</resources>

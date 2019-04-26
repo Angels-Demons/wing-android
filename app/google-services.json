@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "477542754255",
+    "firebase_url": "https://wing-52cfd.firebaseio.com",
+    "project_id": "wing-52cfd",
+    "storage_bucket": "wing-52cfd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:477542754255:android:423448fc2e69ed74",
+        "android_client_info": {
+          "package_name": "masterpiece.wing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "477542754255-ris8ec3n3ug9dfvecpj2tld18jjtgq5d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "masterpiece.wing",
+            "certificate_hash": "36e9394b70e6b92972b70c12cc82d9080518bc25"
+          }
+        },
+        {
+          "client_id": "477542754255-r2cqnsc5ks1en9co21ov4v2sdr6q30vl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFYv4kXlUMtlG6IHPNXLmydwe2PigqOS0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "477542754255-r2cqnsc5ks1en9co21ov4v2sdr6q30vl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
