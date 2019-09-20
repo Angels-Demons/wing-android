@@ -6,10 +6,229 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:typeface">serif</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+    <style name="very_small_icon">
+        <item name="android:layout_marginRight">@dimen/small_view_margin</item>
+        <item name="android:layout_marginLeft">@dimen/small_view_margin</item>
+        <item name="android:layout_marginBottom">@dimen/small_view_margin</item>
+        <item name="android:layout_marginTop">@dimen/small_view_margin</item>
+        <item name="android:layout_width">16dp</item>
+        <item name="android:layout_height">16dp</item>
+    </style>
+
+    <style name="small_icon">
+        <!--<item name="android:padding">5dp</item>-->
+        <item name="android:layout_marginRight">@dimen/small_view_margin</item>
+        <item name="android:layout_marginLeft">@dimen/small_view_margin</item>
+        <item name="android:layout_marginBottom">@dimen/small_view_margin</item>
+        <item name="android:layout_marginTop">@dimen/small_view_margin</item>
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+    </style>
+
+    <style name="medium_icon">
+        <!--<item name="android:padding">5dp</item>-->
+        <item name="android:layout_marginRight">@dimen/big_view_margin</item>
+        <item name="android:layout_marginLeft">@dimen/big_view_margin</item>
+        <item name="android:layout_marginBottom">@dimen/big_view_margin</item>
+        <item name="android:layout_marginTop">@dimen/big_view_margin</item>
+        <item name="android:layout_width">36dp</item>
+        <item name="android:layout_height">36dp</item>
+    </style>
+
+    <style name="big_icon">
+        <!--<item name="android:padding">3dp</item>-->
+        <item name="android:layout_marginRight">@dimen/big_view_margin</item>
+        <item name="android:layout_marginLeft">@dimen/big_view_margin</item>
+        <item name="android:layout_marginBottom">@dimen/big_view_margin</item>
+        <item name="android:layout_marginTop">@dimen/big_view_margin</item>
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+    </style>
+
+    <style name="header_nav_icon">
+        <item name="android:padding">30dp</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">80dp</item>
+    </style>
+
+    <style name="layout_small_margin">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/small_layout_padding</item>
+        <item name="android:layout_marginRight">@dimen/small_layout_margin</item>
+        <item name="android:layout_marginLeft">@dimen/small_layout_margin</item>
+        <item name="android:layout_marginBottom">@dimen/small_layout_margin</item>
+        <item name="android:layout_marginTop">@dimen/small_layout_margin</item>
+    </style>
+
+    <style name="profile_title">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">26dp</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginBottom">6dp</item>
+        <item name="android:paddingLeft">8dp</item>
+    </style>
+
+    <style name="edit_text">
+        <item name="android:gravity">center</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/md_black_1000</item>
+        <item name="android:textColorHint">@color/md_grey_500</item>
+        <item name="android:layout_marginRight">50dp</item>
+        <item name="android:layout_marginLeft">50dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:padding">20dp</item>
+    </style>
+
+    <style name="pin_digit">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/md_white_1000</item>
+        <item name="android:textColorHint">@color/md_black_1000</item>
+        <item name="android:layout_marginRight">3dp</item>
+        <item name="android:layout_marginLeft">3dp</item>
+        <!--<item name="android:layout_marginTop">20dp</item>-->
+        <!--<item name="android:layout_marginBottom">20dp</item>-->
+        <item name="android:padding">10dp</item>
+        <item name="android:inputType">numberDecimal</item>
+        <item name="android:maxLength">1</item>
+    </style>
+
+    <style name="button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/md_white_1000</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">@dimen/small_layout_padding</item>
+        <item name="android:layout_marginRight">@dimen/small_layout_margin</item>
+        <item name="android:layout_marginLeft">@dimen/small_layout_margin</item>
+        <item name="android:layout_marginBottom">@dimen/small_layout_margin</item>
+        <item name="android:layout_marginTop">@dimen/small_layout_margin</item>
+        <item name="android:background">@drawable/gradient</item>
+    </style>
+
+    <style name="header">
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_width">150dp</item>
+        <item name="android:layout_height">150dp</item>
+        <item name="android:layout_margin">20dp</item>
+        <!--<item name="android:padding">20dp</item>-->
+    </style>
+
+    <style name="text_view">
+        <item name="android:lines">1</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/small_text</item>
+        <item name="android:textColor">@color/md_white_1000</item>
+        <item name="android:layout_marginRight">50dp</item>
+        <item name="android:layout_marginLeft">50dp</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <!--<item name="android:layout_marginBottom">20dp</item>-->
+        <!--<item name="android:padding">20dp</item>-->
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="text_view_main">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/small_text</item>
+        <item name="android:textColor">@color/md_white_1000</item>
+        <!--<item name="android:layout_margin">@dimen/small_view_margin</item>-->
+        <item name="android:layout_marginRight">@dimen/small_view_margin</item>
+        <item name="android:layout_marginLeft">@dimen/small_view_margin</item>
+        <item name="android:layout_marginTop">@dimen/small_view_margin</item>
+        <item name="android:layout_marginBottom">@dimen/small_view_margin</item>
+        <!--<item name="android:padding">@dimen/small_padding</item>-->
+        <item name="android:gravity">end</item>
+    </style>
+
+    <style name="text_view_large">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/large_text</item>
+        <item name="android:textColor">@color/md_white_1000</item>
+        <!--<item name="android:layout_margin">@dimen/small_view_margin</item>-->
+        <item name="android:layout_marginRight">@dimen/small_view_margin</item>
+        <item name="android:layout_marginLeft">@dimen/small_view_margin</item>
+        <item name="android:layout_marginTop">@dimen/small_view_margin</item>
+        <item name="android:layout_marginBottom">@dimen/small_view_margin</item>
+        <!--<item name="android:padding">@dimen/small_padding</item>-->
+        <item name="android:gravity">end</item>
+    </style>
+
+    <style name="text_view_micro">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/micro_text</item>
+        <item name="android:layout_margin">@dimen/small_view_margin</item>
+        <!--<item name="android:layout_marginRight">50dp</item>-->
+        <!--<item name="android:layout_marginLeft">50dp</item>-->
+        <!--<item name="android:layout_marginTop">20dp</item>-->
+        <!--<item name="android:layout_marginBottom">20dp</item>-->
+        <!--<item name="android:padding">@dimen/small_padding</item>-->
+        <item name="android:gravity">end</item>
+    </style>
+
+    <style name="text_message">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/md_white_1000</item>
+        <item name="android:layout_marginRight">50dp</item>
+        <item name="android:layout_marginLeft">50dp</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <!--<item name="android:layout_marginBottom">20dp</item>-->
+        <!--<item name="android:padding">20dp</item>-->
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="header_tutorial">
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">@color/md_white_1000</item>
+        <!--<item name="android:layout_marginRight">50dp</item>-->
+        <!--<item name="android:layout_marginLeft">50dp</item>-->
+        <item name="android:layout_marginTop">80dp</item>
+        <!--<item name="android:layout_marginBottom">20dp</item>-->
+        <!--<item name="android:padding">20dp</item>-->
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="footer_tutorial">
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/md_white_1000</item>
+        <!--<item name="android:layout_marginRight">50dp</item>-->
+        <!--<item name="android:layout_marginLeft">50dp</item>-->
+        <!--<item name="android:layout_marginTop">20dp</item>-->
+        <item name="android:layout_marginBottom">100dp</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:gravity">center</item>
+    </style>
 
 </resources>

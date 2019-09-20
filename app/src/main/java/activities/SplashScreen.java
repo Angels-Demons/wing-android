@@ -8,16 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.google.gson.Gson;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
-import org.json.JSONObject;
-
-import cz.msebera.android.httpclient.Header;
-import helper.AsyncRequest;
 import helper.PreferenceManager;
-import helper.WebService;
 import masterpiece.wing.R;
 import me.anwarshahriar.calligrapher.Calligrapher;
 import model.PreferenceModel;

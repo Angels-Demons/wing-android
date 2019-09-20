@@ -1,5 +1,6 @@
 package model;
 
+import enums.StateMainActivity;
 import helper.PreferenceManager;
 
 /**
@@ -7,7 +8,7 @@ import helper.PreferenceManager;
  */
 
 public class PreferenceModel {
-    private int state;
+    private StateMainActivity state;
     private boolean isFirstTimeLaunch;
     private boolean isLoggedIn;
     private String phone;
@@ -15,19 +16,19 @@ public class PreferenceModel {
     private String rideId;
 
     public PreferenceModel() {
-        this.state = 0;
+        this.state = StateMainActivity.NOTHING_IS_SELECTED;
         this.isFirstTimeLaunch = true;
         this.isLoggedIn = false;
-        this.phone = "dummy phone";
+        this.phone = "";
         this.token = "dummy token";
         this.rideId = "dummy ride id";
     }
 
-    public int getState() {
+    public StateMainActivity getState() {
         return state;
     }
 
-    public void setState(int state, PreferenceManager preferenceManager) {
+    public void setState(StateMainActivity state, PreferenceManager preferenceManager) {
         this.state = state;
         preferenceManager.setPreferenceModel(this);
 //        System.out.println(this.state);

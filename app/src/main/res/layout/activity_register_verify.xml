@@ -4,30 +4,68 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="activities.Register"
+    tools:activity="activities.Login"
     android:background="@color/md_white_1000"
     android:orientation="vertical"
     android:gravity="center">
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/logo_header"
+        android:layout_weight="1"
+        style="@style/layout_small_margin"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1"
+        android:layout_gravity="start"
+        android:gravity="center_horizontal"
+        android:layout_margin="@dimen/login_register_text_margin">
+
+        <TextView
+            android:visibility="invisible"
+            style="@style/text_view"
+            android:text="ثبت نام"
+            android:textSize="20dp"
+            android:textColor="@color/md_blue_grey_800"
+            android:gravity="center"
+            android:onClick="languageCheck"/>
+
+        <ImageView
+            android:padding="0dp"
+            android:layout_height="@dimen/big_logo_dimen"
+            android:layout_width="@dimen/big_logo_dimen"
+            android:id="@+id/header"
+            style="@style/header_nav_icon"
+            android:src="@drawable/logo_black" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/intro_header_text"
-        android:textColor="@color/colorPrimary"
-        android:text="Wing"
-        android:layout_margin="@dimen/divider"/>
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/phone_verify"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/intro_body_text"
+            android:text="09120123456"
+            android:layout_margin="5dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/intro_body_text"
+            android:text="شماره تلفن:"
+            android:layout_margin="5dp"/>
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="100dp" />
+    </LinearLayout>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/text_view"
+        android:textColor="@color/dark_grey"
         android:textSize="@dimen/intro_body_text"
-        android:textColor="@color/md_blue_grey_500"
-        android:text="verification code"
+        android:text="کد فعال سازی"
         android:layout_margin="@dimen/divider"/>
+
+
 
     <EditText
         android:id="@+id/verification_code"
@@ -35,12 +73,13 @@
         android:layout_height="wrap_content"
         android:textColor="@color/md_black_1000"
         android:textSize="@dimen/intro_header_text"
-        android:hint="1234"
-        android:maxLength="6"
+        android:hint="XXXX"
+        android:maxLength="4"
         android:inputType="number"
-        android:textColorHint="@color/md_grey_400" />
+        android:textColorHint="@color/md_grey_200" />
 
     <ui.PieView
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:id="@+id/pieView"/>
@@ -50,7 +89,7 @@
         android:layout_height="wrap_content"
         android:textSize="16dp"
         android:textColor="@color/md_blue_grey_500"
-        android:text="52 seconds"
+        android:text="52 ثانیه"
         android:layout_margin="@dimen/login_register_text_margin"
         android:id="@+id/timer"/>
 
@@ -60,7 +99,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:layout_margin="@dimen/divider"
-        android:text="verify"
+        android:text="ورود"
         android:textColor="@color/md_white_1000"
         android:textSize="20dp"
         android:onClick="verifyClicked" />

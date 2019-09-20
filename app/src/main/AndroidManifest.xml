@@ -1,34 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="masterpiece.wing">
 
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-permission-sdk-23 android:name="android.permission.CAMERA" />
 
     <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <uses-feature
         android:name="android.hardware.location.gps"
         android:required="true" />
 
-    <!--
-         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
-         Google Maps Android API v2, but you must specify either coarse or fine
-         location permissions for the 'MyLocation' functionality. 
-    -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
     <application
+        android:name="application.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <!--modify maybe later when I use higher gms than 16.0.0-->
+        <activity android:name="activities.Tutorial"></activity>
+        <!-- modify maybe later when I use higher gms than 16.0.0 -->
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
@@ -44,11 +45,24 @@
         </activity>
         <activity
             android:name="activities.Login"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="activities.Register"
-            android:screenOrientation="portrait" />
-        <activity android:name="activities.WelcomeActivity" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="terms"
+                    android:scheme="wing" />
+
+            </intent-filter>
+        </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -75,22 +89,26 @@
                 <data
                     android:host="payment"
                     android:scheme="wing" />
+
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.android.settings.SHORTCUT" />
+
+                <data
+                    android:host="com.android.phone"
+                    android:scheme="com.android.phone.settings" />
                 <!-- <data android:scheme="app"/> -->
             </intent-filter>
-        </activity>
-
-        <!--<activity-->
-            <!--android:name="activities.Shop"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"/>-->
-
+        </activity> <!-- <activity -->
+        <!-- android:name="activities.Shop" -->
+        <!-- android:screenOrientation="portrait" -->
+        <!-- android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"/> -->
         <activity
             android:name="activities.Shop"
-            android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"/>
-
-        <activity android:name="activities.Tutorial"
-            android:screenOrientation="portrait"/>
-
+            android:theme="@android:style/Theme.Holo.Dialog.NoActionBar" />
     </application>
 
 </manifest>

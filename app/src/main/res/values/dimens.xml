@@ -1,5 +1,23 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="micro_text">15sp</dimen>
+    <dimen name="large_text">30sp</dimen>
+    <dimen name="small_text">20sp</dimen>
+    <dimen name="small_view_margin">5dp</dimen>
+    <dimen name="big_view_margin">10dp</dimen>
+    <dimen name="small_view_padding">5dp</dimen>
+
+    <dimen name="small_layout_margin">10dp</dimen>
+    <dimen name="small_layout_padding">10dp</dimen>
+    <dimen name="big_layout_margin">20dp</dimen>
+    <dimen name="very_big_layout_margin">50dp</dimen>
+    <dimen name="big_layout_padding">20dp</dimen>
+    <dimen name="big_padding">16dp</dimen>
+
+    <dimen name="elevation">3dp</dimen>
+
+
     <dimen name="font_stat">18sp</dimen>
     <dimen name="font_action">20sp</dimen>
     <dimen name="footer_height">70dp</dimen>
@@ -20,4 +38,5 @@
     <dimen name="divider">15dp</dimen>
     <dimen name="prices_text_size">20dp</dimen>
     <dimen name="price_label_size">25dp</dimen>
+    <dimen name="big_logo_dimen">200dp</dimen>
 </resources>

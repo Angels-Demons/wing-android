@@ -5,24 +5,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.PagerAdapter;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 //import com.gigamole.infinitecycleviewpager.VerticalViewPager;
@@ -32,16 +23,11 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 //import com.zarinpal.ewallets.purchase.PaymentRequest;
 //import com.zarinpal.ewallets.purchase.ZarinPal;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
-
-import helper.AsyncRequest;
+import helper.SyncAsyncRequest;
 import helper.PreferenceManager;
 import masterpiece.wing.R;
 import model.PreferenceModel;
 import model.Profile;
-import ui.MyColor;
 
 //public class Shop extends AppCompatActivity {
 
@@ -225,9 +211,9 @@ public class Shop extends FragmentActivity {
 //    }
 
     private void openInBrowser(int amount, String phone) {
-        String uriString = String.format(AsyncRequest.BASE_URL, "zarinpal/request/?amount=",amount,"&phone=",phone);
+        String uriString = String.format(SyncAsyncRequest.BASE_URL, "zarinpal/request/?amount=",amount,"&phone=",phone);
 //        Uri uri = Uri.parse(uriString);
-        Uri uri = Uri.parse(AsyncRequest.BASE_URL + "zarinpal/request/?amount=" + amount + "&phone=" + phone);
+        Uri uri = Uri.parse(SyncAsyncRequest.BASE_URL + "zarinpal/request/?amount=" + amount + "&phone=" + phone);
 //        Uri uri = Uri.parse("return://zarinpalpayment/");
 
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
@@ -277,7 +263,7 @@ public class Shop extends FragmentActivity {
             }
         });
 
-        mWebview.loadUrl(AsyncRequest.BASE_URL + "zarinpal/request/");
+        mWebview.loadUrl(SyncAsyncRequest.BASE_URL + "zarinpal/request/");
         setContentView(mWebview );
     }
 

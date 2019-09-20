@@ -8,6 +8,8 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
+import masterpiece.wing.R;
+
 /**
  * Created by User on 7/31/2018.
  */
@@ -57,7 +59,8 @@ public class PieView extends View {
     private void init(){
 
         pieColor = new Paint();
-        pieColor.setColor(MyColor.PRIMARY);
+//        pieColor.setColor(MyColor.PRIMARY);
+        pieColor.setColor(getResources().getColor(R.color.purple));
         //Shader gradient = new SweepGradient(0,getMeasuredHeight()/2, Color.RED, Color.WHITE);
         pieColor.setAntiAlias(true);
         pieColor.setStyle(Paint.Style.STROKE);

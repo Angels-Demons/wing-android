@@ -11,4 +11,21 @@
     <string name="confirm">پرداخت</string>
     <string name="cancel">انصراف</string>
     <string name="title">افزایش اعتبار (تومان)</string>
+
+    <string name="tut_header_0">روشن کردن دستگاه</string>
+    <string name="tut_header_1">شروع حرکت</string>
+    <string name="tut_header_2">قرارگیری پا</string>
+    <string name="tut_header_3">ترمز</string>
+    <string name="tut_header_4">پارک کردن</string>
+    <string name="tut_header_5">پایان سفر</string>
+
+    <string name="tut_footer_0">با انتخاب گزینه شروع سفر، کد اسکوتر را اسکن کنید تا دستگاه فعال شود</string>
+    <string name="tut_footer_1">یک پای خود را روی اسکوتر قرار دهید؛ سپس پا بزنید تا اسکوتر شروع به حرکت کند و بعد اهرم گاز را فشار دهید</string>
+    <string name="tut_footer_2">در حال حرکت حتما هر دو پای خود را روی اسکوتر قرار دهید</string>
+    <string name="tut_footer_3">برای ترمز کردن با دست چپ اهرم ترمز را فشار دهید</string>
+    <string name="tut_footer_4">دستگاه را در محلی مناسب پارک کنید</string>
+    <string name="tut_footer_5">با انتخاب گزینه پایان سفر در اپلیکیشن به سفر خود پایان دهید</string>
+    <string name="terms_fa">با کلیک کردن روی دکمه تایید <u>قوانین</u> استفاده از ناوگان وینگ را مطالعه نموده و می پذیرم</string>
+
+
 </resources>

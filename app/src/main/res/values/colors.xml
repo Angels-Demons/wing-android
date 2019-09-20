@@ -6,11 +6,15 @@
 
     <!--<color name="navy">#00B0F0</color>-->
     <!---->
+    <color name="dark_grey">#414141</color>
+    <color name="light_grey">#999999</color>
+    <color name="purple">#4f3a65</color>
 
     <color name="statColor">#3CA1D9</color>
 
-
-    <color name="colorAccent">#000000</color>
+    <color name="progressTransparent">#55000000</color>
+    <color name="colorAccent">#4f3a65</color>
+    <color name="colorAccentOld">#7054e0</color>
 
 
     <color name="navy">#34495E</color>
@@ -27,9 +31,10 @@
 
 
     <color name="blackBG">#000000</color>
-    <color name="colorPrimary">#7054e0</color>
+    <color name="colorPrimary">#4f3a65</color>
     <color name="colorPrimaryText">#FFFFFF</color>
-    <color name="colorPrimaryDark">#6a2c98</color>
+    <color name="colorPrimaryDark">#4f3a65</color>
+    <!--<color name="colorPrimaryDark">#6a2c98</color>-->
     <!--<color name="colorPrimaryDarkTransparent">#6a2c98</color>-->
 
 

@@ -6,7 +6,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="activities.MainActivity">
+    tools:activity="activities.MainActivity">
 
     <fragment
         android:id="@+id/map"
@@ -62,11 +62,60 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:visibility="gone">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="trigger"
+            android:layout_weight="1"
+            android:onClick="trigger"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="cancel"
+            android:layout_weight="1"
+            android:onClick="cancel"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="update"
+            android:layout_weight="1"
+            android:onClick="update"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:orientation="vertical"
-        android:padding="20dp"
-        android:weightSum="3">
+        android:padding="20dp">
+
+        <LinearLayout
+            android:id="@+id/tut_button"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/footer_height"
+            android:layout_weight="1"
+            android:background="@drawable/footer_stat"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:onClick="tutorialButtonClicked">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="نحوه استفاده"
+                android:textColor="@color/statColor"
+                android:textSize="@dimen/font_action" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/stat_bar"
@@ -80,7 +129,6 @@
             android:weightSum="3">
 
             <TextView
-                android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -156,5 +204,10 @@
         android:background="@drawable/ic_menu_black_24dp"
         android:backgroundTint="@color/md_white_1000"
         android:onClick="menuClicked" />
+
+    <include
+        android:id="@+id/progress_layout"
+        layout="@layout/progress_layout"
+        android:visibility="gone"/>
 
 </RelativeLayout>

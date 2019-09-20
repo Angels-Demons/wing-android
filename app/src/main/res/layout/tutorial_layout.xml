@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="activities.Tutorial"
+    tools:activity="activities.TutorialOld"
     android:background="@color/colorPrimary">
 
     <com.airbnb.lottie.LottieAnimationView
@@ -17,27 +17,13 @@
         app:lottie_fileName="no_internet_connection.json" />
 
     <TextView
-        android:id="@+id/title_tut"
-        android:layout_marginTop="90dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/header_tutorial"
         android:text="توتوریال"
-        android:textStyle="bold"
-        android:textColor="@color/md_white_1000"
-        android:textSize="30sp"
-        android:layout_centerHorizontal="true"/>
+        />
 
     <TextView
-        android:id="@+id/info_tut"
-        android:layout_marginBottom="100dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="دستگاه را روشن کنید"
-        android:textStyle="bold"
-        android:textColor="@color/md_white_1000"
-        android:textSize="17sp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"/>
+        style="@style/footer_tutorial"
+        android:text="دستگاه را روشن کنید"/>
 
 
     <!--<LinearLayout-->

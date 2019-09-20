@@ -1,5 +1,11 @@
 package model;
 
+import android.app.Activity;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.widget.ImageView;
+
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -36,14 +42,23 @@ public class Scooter {
         this.latLng = new LatLng(latitude, longitude);
     }
 
-    public BitmapDescriptor getIcon(){
+    public BitmapDescriptor getIcon(Context context, int width, int height){
+        Bitmap icon, bitmap;
         switch (status){
 //            ready
             case 1:
-                return BitmapDescriptorFactory.fromResource(R.drawable.free_scooter_marker);
+                icon = BitmapFactory.decodeResource(context.getResources(),
+                        R.drawable.free_scooter_marker);
+                bitmap = Bitmap.createScaledBitmap(icon, width, height, false);
+                return BitmapDescriptorFactory.fromBitmap(bitmap);
+//                return BitmapDescriptorFactory.fromResource(R.drawable.free_scooter_marker);
 //            occupied
             case 2:
-                return BitmapDescriptorFactory.fromResource(R.drawable.occupied_scooter_marker);
+                icon = BitmapFactory.decodeResource(context.getResources(),
+                        R.drawable.occupied_scooter_marker);
+                bitmap = Bitmap.createScaledBitmap(icon, width, height, false);
+                return BitmapDescriptorFactory.fromBitmap(bitmap);
+//                return BitmapDescriptorFactory.fromResource(R.drawable.occupied_scooter_marker);
 //            low_battery
             case 3:
                 return BitmapDescriptorFactory.fromResource(R.drawable.low_battery_scooter_marker);
@@ -56,6 +71,20 @@ public class Scooter {
         }
     }
 
+    public String getStatusString(){
+        switch (getStatus()){
+            case 1:
+                return "آزاد";
+            case 2:
+                return "مشغول";
+            case 3:
+                return "شارژ کم";
+            case 4:
+                return "غیر قابل استفاده";
+            default:
+                return "";
+        }
+    }
 
 
     public int getDevice_code() {

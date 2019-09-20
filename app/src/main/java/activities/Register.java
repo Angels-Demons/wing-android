@@ -3,11 +3,13 @@ package activities;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,35 +17,34 @@ import android.widget.Toast;
 //import org.codehaus.jackson.type.TypeReference;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import cz.msebera.android.httpclient.Header;
-import helper.AsyncRequest;
 import helper.PreferenceManager;
 import helper.WebService;
 import masterpiece.wing.R;
 import model.PreferenceModel;
 import ui.PieView;
 
-public class Register extends AppCompatActivity {
+public class Register extends BaseActivity {
+//public class Register extends AppCompatActivity {
 
     private FirebaseAnalytics mFirebaseAnalytics;
 
-    private PieView pieView;
-    private TextView timer;
-    private static final long TIMER = 60 * 1000;
+    public PieView pieView;
+    public TextView timer;
+    public static final long TIMER = 2 * 60 * 1000;
     public ObjectAnimator animator;
 
-    public EditText phone, password, repeatPassword;
+//    public EditText phone, password, repeatPassword;
+    public EditText phone;
+    public TextView phoneVerify;
 
     public EditText verificationCode;
 
     public PreferenceManager preferenceManager;
     public PreferenceModel preferenceModel;
+
+    LinearLayout logoHeader;
+    TextView rules;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,8 @@ public class Register extends AppCompatActivity {
         // Obtain the FirebaseAnalytics instance.
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         setContentView(R.layout.activity_register);
+
+        attachKeyboardListeners();
 
         preferenceManager = new PreferenceManager(this);
         preferenceModel = preferenceManager.getPreferenceModel();
@@ -63,7 +66,7 @@ public class Register extends AppCompatActivity {
     }
 
     public void registerClicked (View view){
-        if (!verifyCredentials(phone, password, repeatPassword)){
+        if (!verifyCredentials(phone)){
             Toast.makeText(getApplicationContext(), "wrong credentials", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -73,7 +76,7 @@ public class Register extends AppCompatActivity {
 //        params.put("phone", phone.getText().toString());
 //        params.put("password", password.getText().toString());
 //        final String relativeUrl = "accounts/register/";
-//        AsyncRequest.post(relativeUrl, params, new JsonHttpResponseHandler(){
+//        SyncAsyncRequest.post(relativeUrl, params, new JsonHttpResponseHandler(){
 //            @Override
 //            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 //                System.out.println("success: " + relativeUrl + "\n" + response.toString());
@@ -91,42 +94,6 @@ public class Register extends AppCompatActivity {
 //            }
 //        });
 
-        setContentView(R.layout.activity_register_verify);
-        init2();
-        animator = ObjectAnimator.ofInt(pieView, "degree", 360,0);
-        animator.setDuration(TIMER);
-        animator.setInterpolator(new LinearInterpolator());
-        animator.start();
-        animator.addListener(new android.animation.Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(android.animation.Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(android.animation.Animator animation) {
-                Toast.makeText(getApplicationContext(), "Time Expired", Toast.LENGTH_SHORT).show();
-                setContentView(R.layout.activity_register);
-            }
-
-            @Override
-            public void onAnimationCancel(android.animation.Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(android.animation.Animator animation) {
-
-            }
-        });
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                String timerText = String.valueOf(pieView.getDegree()*TIMER/360/1000);
-                timerText = timerText + " seconds";
-                timer.setText(timerText);
-            }
-        });
     }
 
     public void verifyClicked (View view){
@@ -135,32 +102,42 @@ public class Register extends AppCompatActivity {
 
     private void init1(){
         phone = (EditText) findViewById(R.id.phone);
-        password = (EditText) findViewById(R.id.password);
-        repeatPassword = (EditText) findViewById(R.id.repeat_password);
+//        password = (EditText) findViewById(R.id.password);
 
         pieView = (PieView) findViewById(R.id.pieView);
         timer = (TextView) findViewById(R.id.timer);
+
+        rules = findViewById(R.id.rules);
+        logoHeader = findViewById(R.id.logo_header);
+
+        rules.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://wingco.ir/terms/")));
+            }
+        });
     }
 
-    private void init2(){
+    public void init2(){
         pieView = (PieView) findViewById(R.id.pieView);
         timer = (TextView) findViewById(R.id.timer);
         verificationCode = (EditText) findViewById(R.id.verification_code);
+        phoneVerify = findViewById(R.id.phone_verify);
 //        Calligrapher calligrapher = new Calligrapher(this);
 //        calligrapher.setFont(this,"font.ttf",true);
     }
 
-    private boolean verifyCredentials(EditText phone, EditText password, EditText repeatPassword){
+    private boolean verifyCredentials(EditText phone){
         if (phone.getText().toString().length() != 11){
             System.out.println("not 11 digits");
             phone.setText("");
             return false;
         }
-        if (!password.getText().toString().contentEquals(repeatPassword.getText().toString())){
-            password.setText("");
-            repeatPassword.setText("");
-            return false;
-        }
+//        if (!password.getText().toString().contentEquals(repeatPassword.getText().toString())){
+//            password.setText("");
+//            repeatPassword.setText("");
+//            return false;
+//        }
         if (!phone.getText().toString().startsWith("0")){
             System.out.println("does not start with 0");
             phone.setText("");
@@ -169,4 +146,17 @@ public class Register extends AppCompatActivity {
         return true;
     }
 
+//    @Override
+//    protected void onShowKeyboard(int keyboardHeight) {
+//        System.out.println("===== on show");
+//        // do things when keyboard is shown
+//        rules.setVisibility(View.VISIBLE);
+//    }
+//
+//    @Override
+//    protected void onHideKeyboard() {
+//        System.out.println("===== on hide");
+//        // do things when keyboard is hidden
+//        logoHeader.setVisibility(View.INVISIBLE);
+//    }
 }

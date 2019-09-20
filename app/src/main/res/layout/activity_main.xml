@@ -9,6 +9,13 @@
     android:layout_gravity="end"
     tools:openDrawer="start">
 
+    <!--<com.airbnb.lottie.LottieAnimationView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--app:lottie_autoPlay="true"-->
+        <!--app:lottie_loop="true"-->
+        <!--app:lottie_fileName="motorcycle.json"/>-->
+
     <include
         layout="@layout/activity_main_back"
         android:layout_width="match_parent"
@@ -23,5 +30,26 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_main_drawer" />
+
+    <LinearLayout
+        android:id="@+id/start_ride_loader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:background="@color/md_white_1000"
+        android:visibility="gone">
+        <!--<View-->
+            <!--android:layout_width="50dp"-->
+            <!--android:layout_height="25dp"-->
+            <!--android:background="@color/md_white_1000"/>-->
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_fileName="motorcycle.json"/>
+
+    </LinearLayout>
 
 </android.support.v4.widget.DrawerLayout>

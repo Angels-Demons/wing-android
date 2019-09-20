@@ -2,6 +2,10 @@ package activities;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.PendingIntent;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
@@ -14,6 +18,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.View;
@@ -53,8 +58,11 @@ import com.google.zxing.integration.android.IntentResult;
 import java.util.ArrayList;
 import java.util.List;
 
+import application.MyApplication;
 import dialogs.PurchaseDialog;
+import enums.StateMainActivity;
 import helper.PreferenceManager;
+import helper.RideVerifier;
 import helper.WebService;
 import masterpiece.wing.R;
 import me.anwarshahriar.calligrapher.Calligrapher;
@@ -62,6 +70,11 @@ import model.PreferenceModel;
 import model.Profile;
 import model.Scooter;
 import model.User;
+
+import static application.MyApplication.DEFAULT_ZOOM;
+import static application.MyApplication.ICON_HEIGHT;
+import static application.MyApplication.ICON_SCALE;
+import static application.MyApplication.ICON_WIDTH;
 
 //public class MainActivity extends AppCompatActivity
 //        implements NavigationView.OnNavigationItemSelectedListener {
@@ -90,7 +103,7 @@ public class MainActivity extends FragmentActivity
     public Profile profile;
 
     TextView header, credit, timer;
-    LinearLayout statBar;
+    LinearLayout statBar, tutButton;
     TextView action;
     ImageButton backButton;
 
@@ -114,6 +127,18 @@ public class MainActivity extends FragmentActivity
     GoogleApiClient googleApiClient;
 
     private Location myLocation;
+
+    LinearLayout start_ride_loader;
+
+    Thread rideVerifierThread;
+
+    public static int RETRY_TIME = 2500;
+
+    ProgressDialog progressDialog;
+
+    LinearLayout progressLayout;
+
+    public static final float selectZoom = 20;
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
@@ -191,7 +216,7 @@ public class MainActivity extends FragmentActivity
     @Override
     protected void onResume() {
         super.onResume();
-        WebService.myProfile(this);
+        WebService.myProfile(this, false);
     }
 
     @Override
@@ -216,8 +241,8 @@ public class MainActivity extends FragmentActivity
         if (drawer.isDrawerOpen(GravityCompat.END)) {
             drawer.closeDrawer(GravityCompat.END);
         } else {
-            if (preferenceModel.getState() == 1) {
-                setState(0);
+            if (preferenceModel.getState() == StateMainActivity.A_SCOOTER_IS_SELECTED) {
+                setState(StateMainActivity.NOTHING_IS_SELECTED);
                 selectedScooterMarker.hideInfoWindow();
             } else {
                 super.onBackPressed();
@@ -259,15 +284,24 @@ public class MainActivity extends FragmentActivity
                 bundle.putString("phone", preferenceModel.getPhone());
                 purchaseDialog.setArguments(bundle);
                 purchaseDialog.show(getFragmentManager(), "افزایش اعتبار");
+                break;
 
+            case R.id.nav_logout:
+                YesNoDialog yesNoDialog = new YesNoDialog(this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder
+                        .setMessage("آیا از خروچ خود مطمئن هستید؟")
+                        .setPositiveButton("بله", yesNoDialog)
+                        .setNegativeButton("خیر", yesNoDialog)
+                        .show();
                 break;
 //            case R.id.nav_ride_history:
 ////                startActivity(new Intent(getApplicationContext(), Shop.class));
 //
 //                break;
-//            case R.id.nav_tutorial:
-////                startActivity(new Intent(getApplicationContext(), Tutorial.class));
-//                break;
+            case R.id.nav_tutorial:
+                startActivity(new Intent(getApplicationContext(), Tutorial.class));
+                break;
 //            case R.id.nav_become_charger:
 //
 //                break;
@@ -283,11 +317,11 @@ public class MainActivity extends FragmentActivity
 //            case R.id.nav_share:
 //
 //                break;
-//            case R.id.nav_send:
-//
+//            case R.id.enter_code:
+//                WebService.startRide(this, 132453);
 //                break;
-            default:
-                break;
+//            default:
+//                break;
 
         }
 
@@ -316,15 +350,19 @@ public class MainActivity extends FragmentActivity
             public boolean onMarkerClick(Marker marker) {
 //                marker.showInfoWindow();
                 selectedScooterMarker = marker;
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 15));
+//                don't zoom back if user has zoomed in
+                if (mMap.getCameraPosition().zoom < selectZoom)
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), selectZoom));
+                else
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), mMap.getCameraPosition().zoom));
                 for (Scooter scooter : scooters) {
                     if (Integer.parseInt(marker.getSnippet()) == scooter.getDevice_code()) {
                         selectScooter(scooter);
-                        System.out.println("DEBUG found");
+//                        System.out.println("DEBUG found");
                         return true;
                     }
                 }
-                System.out.println("DEBUG not");
+//                System.out.println("DEBUG not");
                 return false;
             }
         });
@@ -393,27 +431,38 @@ public class MainActivity extends FragmentActivity
     }
 
     public void loadMap() throws NullPointerException {
+        //        showUserOnMap();
         mMap.clear();
-        LatLng sharifUni = new LatLng(35.7002762, 51.354876);
-//        10 for tehran
-//        15 for sharif
-        float zoom = 13;
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sharifUni, zoom));
-
-//        showUserOnMap();
-
         if (scooters.size() > 0) {
             for (Scooter scooter : scooters) {
+                System.out.println("=== adding marker " + scooter.getDevice_code());
                 mMap.addMarker(new MarkerOptions()
                         .position(scooter.getLatLng())
                         .title("دستگاه انتخاب شده")
-                        .icon(scooter.getIcon())
+                        .icon(scooter.getIcon(getApplicationContext(),
+                                ICON_WIDTH*ICON_SCALE,ICON_HEIGHT*ICON_SCALE))
                         .snippet(String.valueOf(scooter.getDevice_code()))
                 );
             }
+            if (preferenceModel.getState() == StateMainActivity.RIDE_STARTED_AND_VERIFIED){
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(scooters.get(0).getLatLng(), DEFAULT_ZOOM));
+            }
+            else {
+                //                animate camera to current position
+                goToMyLocation();
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                        new LatLng(myLocation.getLatitude(), myLocation.getLongitude()),
+                        DEFAULT_ZOOM));
+            }
         } else {
-            Toast.makeText(getApplicationContext(), "هیچ وسیله ای یافت نشد", Toast.LENGTH_SHORT).show();
+            //                animate camera to current position
+            goToMyLocation();
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                    new LatLng(myLocation.getLatitude(), myLocation.getLongitude()),
+                    DEFAULT_ZOOM));
+            Toast.makeText(getApplicationContext(), "هیچ وسیله ای در نزدیکی شما یافت نشد", Toast.LENGTH_SHORT).show();
         }
+
     }
 
     private void loadScooters() {
@@ -444,7 +493,7 @@ public class MainActivity extends FragmentActivity
         preferenceModel = preferenceManager.getPreferenceModel();
 
 //        modify
-        WebService.myProfile(this);
+        WebService.myProfile(this, false);
         profile = preferenceManager.getProfile();
 
 //        preferenceModel = preferenceModel.getPreferenceModel();
@@ -456,6 +505,7 @@ public class MainActivity extends FragmentActivity
         timer = (TextView) findViewById(R.id.timer);
 
         statBar = (LinearLayout) findViewById(R.id.stat_bar);
+        tutButton = findViewById(R.id.tut_button);
 
         action = (TextView) findViewById(R.id.action);
 
@@ -503,6 +553,15 @@ public class MainActivity extends FragmentActivity
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        start_ride_loader = findViewById(R.id.start_ride_loader);
+        progressLayout = findViewById(R.id.progress_layout);
+        progressLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),"لطفا منتظر بمانید", Toast.LENGTH_SHORT).show();
+            }
+        });
         startTimer();
     }
 
@@ -532,11 +591,11 @@ public class MainActivity extends FragmentActivity
 
     private void selectScooter(Scooter scooter) {
         selectedScooter = scooter;
-        setState(1);
+        setState(StateMainActivity.A_SCOOTER_IS_SELECTED);
     }
 
     public void actionBarClicked(View view) {
-        if (preferenceModel.getState() == 0 || preferenceModel.getState() == 1) {
+        if (preferenceModel.getState() == StateMainActivity.NOTHING_IS_SELECTED || preferenceModel.getState() == StateMainActivity.A_SCOOTER_IS_SELECTED) {
             if (DEBUG) System.out.println("DEBUG: state 0 or 1");
 //            modify
 //            scan QR here
@@ -577,7 +636,7 @@ public class MainActivity extends FragmentActivity
             }
 
 
-        } else if (preferenceModel.getState() == 2) {
+        } else if (preferenceModel.getState() == StateMainActivity.RIDE_STARTED_AND_VERIFIED) {
             WebService.endRide(this);
         }
     }
@@ -591,11 +650,11 @@ public class MainActivity extends FragmentActivity
         onBackPressed();
     }
 
-    public void setState(int state) {
+    public void setState(StateMainActivity state) {
         System.out.println("request to set the state to " + state + " from " + preferenceModel.getState());
         switch (state) {
 //            nothing selected
-            case 0:
+            case NOTHING_IS_SELECTED:
                 loadScooters();
                 System.out.println("size: " + scooters.size());
 //                loadMap();
@@ -603,48 +662,46 @@ public class MainActivity extends FragmentActivity
                 credit.setText("اعتبار: " + profile.getCredit() + " تومان");
                 timer.setText("");
                 statBar.setVisibility(View.GONE);
+                tutButton.setVisibility(View.VISIBLE);
                 action.setText("شروع سفر");
                 backButton.setVisibility(View.GONE);
+                start_ride_loader.setVisibility(View.GONE);
+                progressLayout.setVisibility(View.GONE);
                 break;
 
 //            a scooter is selected
-            case 1:
+            case A_SCOOTER_IS_SELECTED:
+                tutButton.setVisibility(View.GONE);
                 if (selectedScooter != null) {
                     int battery = selectedScooter.getBattery();
                     System.out.println("DEBUG: " + selectedScooter.toString());
                     header.setText("درخواست اسکوتر");
                     credit.setText("اعتبار: " + profile.getCredit() + " تومان");
                     timer.setText("");
-                    String distance = battery * 30 / 100 + "\nکیلومتر";
+                    String deviceCode = selectedScooter.getDevice_code() + "\nپلاک";
                     String charge = battery + "%\nشارژ";
-                    String endurance = battery * 90 / 100 + "\nدقیقه";
-                    ((TextView) statBar.getChildAt(0)).setText(distance);
+                    String status = selectedScooter.getStatusString() + "\nوضعیت";
+                    ((TextView) statBar.getChildAt(0)).setText(deviceCode);
                     ((TextView) statBar.getChildAt(1)).setText(charge);
-                    ((TextView) statBar.getChildAt(2)).setText(endurance);
+                    ((TextView) statBar.getChildAt(2)).setText(status);
                     statBar.setVisibility(View.VISIBLE);
                     action.setText("شروع سفر");
                     backButton.setVisibility(View.VISIBLE);
+                    start_ride_loader.setVisibility(View.GONE);
+                    progressLayout.setVisibility(View.GONE);
                 } else {
                     System.out.println("state was changed to zero because selected scooter was null");
-                    setState(0);
+                    setState(StateMainActivity.NOTHING_IS_SELECTED);
                     return;
                 }
-
                 break;
 
 
 //            scooter is scanned successfully (if not stay in 1)
 //            timer is running
-            case 2:
-                int battery = 94;
-                try {
-                    battery = selectedScooter.getBattery();
-                }
-                catch (NullPointerException e){
-                    e.printStackTrace();
-                }
-
-//                modify : get real battery
+            case RIDE_STARTED_NOT_VERIFIED:
+                tutButton.setVisibility(View.GONE);
+                int battery = profile.getBattery();
 
                 header.setText("در حال سفر");
                 credit.setText("اعتبار: " + profile.getCredit() + " تومان");
@@ -661,7 +718,19 @@ public class MainActivity extends FragmentActivity
                 statBar.setVisibility(View.VISIBLE);
                 action.setText("پایان سفر");
                 backButton.setVisibility(View.GONE);
+//                block UI thread with progress bar
+                progressLayout.setVisibility(View.VISIBLE);
+//                progressDialog = new ProgressDialog(this);
+//                progressDialog.setMessage("در حال روشن کردن دستگاه");
+//                progressDialog.show();
 
+//                start_ride_loader.setVisibility(View.VISIBLE);
+
+//                here is the loop
+                if (rideVerifierThread == null) {
+                    rideVerifierThread = new Thread(new RideVerifier(this, RETRY_TIME));
+                    rideVerifierThread.start();
+                }
 //                mMap.clear();
 //                mMap.addMarker(new MarkerOptions()
 //                        .position(selectedScooter.getLatLng())
@@ -669,19 +738,66 @@ public class MainActivity extends FragmentActivity
 //                        .icon(selectedScooter.getIcon())
 //                        .snippet(String.valueOf(selectedScooter.getDevice_code()))
 //                );
-//                break;
+                break;
+
+            case RIDE_STARTED_AND_VERIFIED:
+                tutButton.setVisibility(View.GONE);
+                loadScooters();
+//                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(scooters.get(0).getLatLng(), DEFAULT_ZOOM));
+                if (progressDialog != null) progressDialog.dismiss();
+                progressLayout.setVisibility(View.GONE);
+                battery = profile.getBattery();
+
+//                modify : get real battery
+
+                header.setText("در حال سفر");
+                credit.setText("اعتبار: " + profile.getCredit() + " تومان");
+//                timer.setText(profile.getTimer());
+
+                distance = battery * 30 / 100 + "\nکیلومتر";
+                charge = battery + "%\nشارژ";
+                endurance = battery * 90 / 100 + "\nدقیقه";
+
+                ((TextView) statBar.getChildAt(0)).setText(distance);
+                ((TextView) statBar.getChildAt(1)).setText(charge);
+                ((TextView) statBar.getChildAt(2)).setText(endurance);
+
+                statBar.setVisibility(View.VISIBLE);
+                action.setText("پایان سفر");
+                backButton.setVisibility(View.GONE);
+                start_ride_loader.setVisibility(View.GONE);
                 break;
             default:
                 break;
         }
 
-        this.preferenceModel.setState(state, preferenceManager);
+//        WebService.myProfile(this);
+        if (state == preferenceModel.getState() && state == StateMainActivity.RIDE_STARTED_NOT_VERIFIED){
+
+        }
+        else {
+            updateNotification(
+                    state,
+//                this flag determines that if the method is invoked from endRide webservice
+//                (if former state is RIDE_STARTED_AND_VERIFIED
+//                and current state is NOTHING_IS_SELECTED
+                    this.preferenceModel.getState()==StateMainActivity.RIDE_STARTED_AND_VERIFIED
+                            && state == StateMainActivity.NOTHING_IS_SELECTED);
+            this.preferenceModel.setState(state, preferenceManager);
+        }
+
         System.out.println("state was changed to " + preferenceModel.getState());
+    }
+
+    public void tutorialButtonClicked(View view){
+        startActivity(new Intent(getApplicationContext(), Tutorial.class));
     }
 
     private void qrScanned(String qrInfo) {
         this.qrInfo = qrInfo;
-        WebService.startRide(this);
+//        modify get device code from get parameters
+//        String deviceCode = qrInfo.split("scooterid")[1];
+        WebService.startRide(this, 0);
     }
 
     private void startTimer() {
@@ -690,7 +806,7 @@ public class MainActivity extends FragmentActivity
         Runnable task = new Runnable() {
             @Override
             public void run() {
-                if (profile.isIs_riding()){
+                if (profile.isIs_riding() && profile.isRide_is_verified()){
                     nSeconds[0]++;
                     timer.setText(profile.getTimer(nSeconds[0]));
 
@@ -856,5 +972,121 @@ public class MainActivity extends FragmentActivity
             getMyLocation();
         }
 
+    }
+
+    private class YesNoDialog implements DialogInterface.OnClickListener{
+
+        Activity activity;
+
+        YesNoDialog(Activity activity) {
+            this.activity = activity;
+        }
+
+        @Override
+        public void onClick(DialogInterface dialogInterface, int which) {
+            switch (which){
+                case DialogInterface.BUTTON_POSITIVE:
+                    //Yes button clicked
+                    preferenceModel.setLoggedIn(false, preferenceManager);
+                    preferenceModel.setPhone(null, preferenceManager);
+                    preferenceModel.setState(StateMainActivity.NOTHING_IS_SELECTED, preferenceManager);
+                    preferenceModel.setToken(null, preferenceManager);
+
+                    startActivity(new Intent(getApplicationContext(), Register.class));
+                    activity.finish();
+                    break;
+
+                case DialogInterface.BUTTON_NEGATIVE:
+                    //No button clicked
+                    break;
+            }
+        }
+    }
+
+    public void trigger(View view){
+        ((MyApplication)getApplication()).triggerNotificationWithBackStack(MainActivity.class,
+                MyApplication.NEWS_CHANNEL_ID,
+                "aaaaa",
+                "bbb",
+                "cccccccc",
+                NotificationCompat.PRIORITY_HIGH,
+                true,
+                MyApplication.notificationId,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+
+    public void trigger(String title, String text, String bigText){
+        ((MyApplication)getApplication()).triggerNotificationWithBackStack(MainActivity.class,
+                MyApplication.NEWS_CHANNEL_ID,
+                title,
+                text,
+                bigText,
+                NotificationCompat.PRIORITY_HIGH,
+                true,
+                MyApplication.notificationId,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+
+    public void updateNotification(StateMainActivity state, boolean endRide){
+        if (endRide){
+            update("سفر به پایان رسید",
+                    "امیدواریم سفر خوبی را با وینگ تجربه کرده باشید",
+                    "برای آغاز سفر جدید این پیغام بزنید",
+                    false);
+        }
+        else {
+            switch (state){
+                case RIDE_STARTED_NOT_VERIFIED:
+                    trigger("بررسی درخواست سفر",
+                            "وینگ در حال روشن کردن دستگاه مورد نظر شماست",
+                            "برای آگاهی از وضعیت سفر یا پایان سفر روی این پیغام بزنید");
+                    break;
+                case RIDE_STARTED_AND_VERIFIED:
+                    update("در حال سفر",
+                            "از سفر خود با وینگ لذت ببرید",
+                            "برای آگاهی از وضعیت سفر یا پایان سفر روی این پیغام بزنید",
+                            true);
+                    break;
+                case NOTHING_IS_SELECTED:
+                    cancel(null);
+                    break;
+                case A_SCOOTER_IS_SELECTED:
+                    cancel(null);
+                    break;
+                default:
+                    break;
+
+            }
+        }
+    }
+
+    public void cancel(View view){
+        ((MyApplication)getApplication()).cancelNotification(MyApplication.notificationId);
+    }
+
+    public void update(View view){
+        ((MyApplication)getApplication()).updateNotification(MainActivity.class,
+                "در حال سفر",
+                "This is updatedNotification",
+                MyApplication.NEWS_CHANNEL_ID,
+                MyApplication.notificationId,
+                "This is a updated information for bigpicture String",
+                PendingIntent.FLAG_UPDATE_CURRENT,
+                true);
+    }
+
+    public void update(String title, String text, String bigText, boolean onGoing){
+        ((MyApplication)getApplication()).updateNotification(MainActivity.class,
+                title,
+                text,
+                MyApplication.NEWS_CHANNEL_ID,
+                MyApplication.notificationId,
+                bigText,
+                PendingIntent.FLAG_UPDATE_CURRENT,
+                onGoing);
+    }
+
+    public Location getMyLocation(String n){
+        return myLocation;
     }
 }

@@ -7,11 +7,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 
-import helper.AsyncRequest;
+import helper.SyncAsyncRequest;
 import masterpiece.wing.R;
-import model.PreferenceModel;
 
 /**
  * Created by User on 12/24/2018.
@@ -78,9 +76,9 @@ public class PurchaseDialog  extends DialogFragment {
     }
 
     private void openInBrowser(int amount, String phone) {
-        String uriString = String.format(AsyncRequest.BASE_URL, "zarinpal/request/?amount=",amount,"&phone=",phone);
+        String uriString = String.format(SyncAsyncRequest.BASE_URL, "zarinpal/request/?amount=",amount,"&phone=",phone);
 //        Uri uri = Uri.parse(uriString);
-        Uri uri = Uri.parse(AsyncRequest.BASE_URL + "zarinpal/request/?amount=" + amount + "&phone=" + phone);
+        Uri uri = Uri.parse(SyncAsyncRequest.BASE_URL + "zarinpal/request/?amount=" + amount + "&phone=" + phone);
 //        Uri uri = Uri.parse("return://zarinpalpayment/");
 
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);

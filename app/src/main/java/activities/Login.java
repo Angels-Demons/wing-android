@@ -15,7 +15,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
-import helper.AsyncRequest;
+import helper.SyncAsyncRequest;
 import helper.PreferenceManager;
 import masterpiece.wing.R;
 import me.anwarshahriar.calligrapher.Calligrapher;
@@ -48,9 +48,9 @@ public class Login extends AppCompatActivity {
         preferenceModel = preferenceManager.getPreferenceModel();
     }
 
-    public void registerClicked(View view){
-        startActivity(new Intent(getApplicationContext(), Register.class));
-    }
+//    public void registerClicked(View view){
+//        startActivity(new Intent(getApplicationContext(), Register.class));
+//    }
 
     public void loginClicked (View view){
         RequestParams params = new RequestParams();
@@ -58,7 +58,7 @@ public class Login extends AppCompatActivity {
         params.put("password", password.getText().toString());
         final String relativeUrl = "accounts/login/";
 
-        AsyncRequest.post(relativeUrl, params, new JsonHttpResponseHandler(){
+        SyncAsyncRequest.post(this,false, relativeUrl, params, "", "", new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 System.out.println("success: " + relativeUrl + "\n" + response.toString());
